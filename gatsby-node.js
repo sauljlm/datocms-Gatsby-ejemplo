@@ -14,14 +14,21 @@ exports.createPages = ({ graphql, actions }) => {
             }
           }
         }
+        presentadores: allDatoCmsPresentador {
+          edges {
+            node {
+              id
+            }
+          }
+        }
       }
     `).then(result => {
-      result.data.allDatoCmsWork.edges.map(({ node: work }) => {
+      result.data.presentadores.edges.map(({ node: presentador }, i) => {
         createPage({
-          path: `works/${work.slug}`,
-          component: path.resolve(`./src/templates/work.js`),
+          path: `presentador/${i}`,
+          component: path.resolve(`./src/templates/presentador.js`),
           context: {
-            slug: work.slug,
+            id: presentador.id,
           },
         })
       })
